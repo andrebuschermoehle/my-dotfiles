@@ -1,11 +1,22 @@
 #!/bin/bash
 
+export XGD_CONFIG_HOME="$HOME"/.config
+mkdir -p "$XGD_CONFIG_HOME"
+
 ln -sf "$PWD/.tmux.conf" "$HOME/.tmux.conf"
-ln -sf "$PWD/nvim/" "$HOME/nvim"
+ln -sf "$PWD/nvim/" "$XGD_CONFIG_HOME/nvim"
+
+
+sudo apt update
+sudo apt install curl tar
+
+# Install latest nodejs
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+nvm install 22
 
 # Install neovim
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux64.tar.gz
-
+echo "export PATH='$PATH:/opt/nvim-linux64/bin'" >> "$HOME/.bashrc"
 
