@@ -1,23 +1,41 @@
 #!/bin/bash
 
+SETUP_INDICATOR_FILE="$HOME"/.setup
+
+# Check if setup indicator file exists
+if [ -f "$SETUP_INDICATOR_FILE" ]; then
+  echo "Setup already ran. Exiting."
+  exit 0
+fi
+
+# Create setup indicator file
+# This file is used to check if setup has already ran
+touch "$SETUP_INDICATOR_FILE"
+
+# Get script directory
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
 export XGD_CONFIG_HOME="$HOME"/.config
 mkdir -p "$XGD_CONFIG_HOME"
 
-ln -sf "$PWD"/.tmux.conf "$HOME"/.tmux.conf
-ln -sf "$PWD"/nvim/ "$XGD_CONFIG_HOME"/nvim
-
+ln -sf "$SCRIPT_DIR"/.tmux.conf "$HOME"/.tmux.conf
+ln -sf "$SCRIPT_DIR"/nvim/ "$XGD_CONFIG_HOME"/nvim
 
 sudo apt update
-sudo apt install curl tar
+sudo apt install curl tar tmux
 
 # Install latest nodejs
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 nvm install 22
 
 # Install neovim
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-sudo rm -rf /opt/nvim
-sudo tar -C /opt -xzf nvim-linux64.tar.gz
-echo "export PATH='$PATH:/opt/nvim-linux64/bin'" >> "$HOME"/.bashrc
-echo "alias vim='nvim'" >> "$HOME"/.bashrc
+#curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+#sudo rm -rf /opt/nvim
+#sudo tar -C /opt -xzf nvim-linux64.tar.gz
+#echo "export PATH='$PATH:/opt/nvim-linux64/bin'" >> "$HOME"/.bashrc
+#echo "alias vim='nvim'" >> "$HOME"/.bashrc
+#rm nvim-linux64.tar.gz
 
