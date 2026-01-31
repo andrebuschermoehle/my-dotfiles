@@ -8,6 +8,6 @@ return {
     },
     lazy = false,
     config = function()
-        vim.keymap.set({"n", "t"}, "<C-f>", ":Neotree source=filesystem reveal=true position=left toggle=true<CR>")
+        vim.keymap.set("n", "<C-f>", ":Neotree source=filesystem reveal=true position=left toggle=true<CR>")
     end,
 }
