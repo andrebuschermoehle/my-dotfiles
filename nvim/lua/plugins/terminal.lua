@@ -10,6 +10,9 @@ return {
         vim.keymap.set({'n', 't'}, '<C-n>', function()
             term.toggle(1, 30, vim.loop.cwd(), "horizontal", "Terminal name")
         end)
+        vim.keymap.set('t', '<C-k>', function()
+            term.toggle(1, 30, vim.loop.cwd(), "horizontal", "Terminal name")
+        end)
     end
 }
 
