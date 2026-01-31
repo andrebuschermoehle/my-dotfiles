@@ -1,8 +1,11 @@
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=4")
-vim.cmd("set softtabstop=4")
-vim.cmd("set shiftwidth=4")
-vim.cmd("set relativenumber")
-vim.cmd("set number")
+vim.o.expandtab = true
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.relativenumber = true
+vim.o.number = true
+vim.o.winborder = "rounded"
+vim.o.signcolumn = "yes"
 vim.g.mapleader = ","
+
 vim.diagnostic.config({ virtual_text = true })
